@@ -5,6 +5,6 @@ sudo apt-get -y update
 sudo apt-get -y install nginx
 echo "Holberton School" | sudo tee /var/www/html/index.html
 sudo service nginx start
-REDIRECT_301= 'rewrite ^/redirect_me https://google.com permanent;'
+REDIRECT_301='rewrite ^/redirect_me https://google.com permanent;'
 sudo sed -i "50 $REDIRECT_301" /etc/nginx/sites-available/default
 sudo service nginx restart
