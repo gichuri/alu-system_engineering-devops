@@ -5,6 +5,55 @@ sudo apt-get -y update
 sudo apt-get -y install nginx
 echo "Holberton School" | sudo tee /var/www/html/index.html
 sudo service nginx start
-REDIRECT_301='rewrite ^/redirect_me https://google.com permanent;'
-sudo sed -i "50 $REDIRECT_301" /etc/nginx/sites-available/default
+printf %s "   root /var/www/html;
+
+        # Add index.php to the list if you are using PHP
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+
+        location /redirect_me {
+    	return 301 https://github.com/gichuri/alu-higher_level_programming;
+        }
+
+        # pass PHP scripts to FastCGI server
+        #
+        #location ~ \.php$ {
+        #       include snippets/fastcgi-php.conf;
+        #
+        #       # With php-fpm (or other unix sockets):
+        #       fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+        #       # With php-cgi (or other tcp sockets):
+        #       fastcgi_pass 127.0.0.1:9000;
+        #}
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        #location ~ /\.ht {
+        #       deny all;
+        #}
+}
+
+
+# Virtual Host configuration for example.com
+#
+# You can move that to a different file under sites-available/ and symlink that
+# to sites-enabled/ to enable it.
+#
+#server {
+#       listen 80;
+#       listen [::]:80;
+#
+#       server_name example.com;
+#
+#       root /var/www/example.com;
+#       index index.html;
+#
+#       location / {
+#               try_files $uri $uri/ =404;
+#       }
+#}
+     
+"| sudo tee /etc/nginx/sites-available/default
 sudo service nginx restart
