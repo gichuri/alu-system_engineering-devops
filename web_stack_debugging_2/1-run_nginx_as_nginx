@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
-# configure nginx to listen on port 8080 ( edit default file) 
-# configure nginx to run as nginx user ( rm www-data to user nginx) 
+# change listening port to 8080, edit nginx.conf to su to nginx
 chmod 777 /etc/nginx/nginx.conf
-sed -i "s/listen 80 default_server;/listen 8080 default_server;/" /etc/nginx/sites-enabled/default
+sed -i "s/80/8080/g" /etc/nginx/sites-available/default
 sed -i "s/#user www-data/user nginx/" /etc/nginx/nginx.conf
 pkill -9 apache
-su nginx -c "service nginx restart" 
+su nginx -c "service nginx restart"
