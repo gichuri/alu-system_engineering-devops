@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# let nginx server listen on port 80
-sudo apt-get purge nginx
-sudo apt-get -y update
-sudo apt-get -y install nginx
-sudo service nginx start
+# use sed -i to edit default file in /etc/nginx/sites-enabled
+sed -i "s/listen 8080 default_server;/listen 80 default_server;/" /etc/nginx/sites-enabled/default
+sed -i "s/listen \[::\]:8080 default_server ipv6only=on;/listen \[::\]:80 default_server;/" /etc/nginx/sites-enabled/default
+sed -i "s/ipv6only=on//" /etc/nginx/sites-enabled/default
+service nginx restart
